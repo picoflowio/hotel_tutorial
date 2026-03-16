@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@shikijs/markdown-it": "^3.4.2",
+    "@shikijs/transformers": "^4.0.2",
     "alpinejs": "^3.14.1",
     "lucide": "^0.469.0",
     "pagefind": "^1.1.0"

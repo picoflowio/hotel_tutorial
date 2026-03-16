@@ -5,6 +5,29 @@ import markdownItFootnote from "markdown-it-footnote";
 import markdownItKbd from "markdown-it-kbd-better";
 import markdownItShiki from '@shikijs/markdown-it';
 import { wikilinksModule } from "./../modules/wikilinks/index.js";
+
+/**
+ * Shiki transformer that adds line numbers to code blocks.
+ * Wraps each line in a <span class="line-number"> and adds a data-line-count attribute.
+ */
+const transformerLineNumbers = () => ({
+  name: 'line-numbers',
+  pre(node) {
+    this.addClassToHast(node, 'has-line-numbers');
+  },
+  code(node) {
+    const lines = node.children.filter(
+      (c) => c.type === 'element' && c.tagName === 'span' && c.properties?.class?.includes('line'),
+    );
+    lines.forEach((line, i) => {
+      if (!line.properties) line.properties = {};
+      line.properties['data-line'] = String(i + 1);
+    });
+    if (node.properties) {
+      node.properties['data-line-count'] = String(lines.length);
+    }
+  },
+});
 import { notesModule } from "./../modules/notes/index.js";
 import { calloutsModule } from "./../modules/callouts/index.js";
 
@@ -53,6 +76,7 @@ export const markdownLibrary = async (eleventyConfig) => {
         langAlias: { 
           njk: 'jinja-html',
         },
+        transformers: [transformerLineNumbers()],
       }),
   );
 
