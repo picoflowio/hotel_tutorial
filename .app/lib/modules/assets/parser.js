@@ -6,7 +6,7 @@ import fs from "fs";
 const extRegex = /\.(png|jpg|jpeg|svg|webp|gif)$/;
 const remoteRegex = /^https?:/;
 const isImageFile = (file) => extRegex.test(file);
-const isRelative = (url) => !remoteRegex.test(url);
+const isRelative = (url) => !remoteRegex.test(url) && !url.startsWith('/');
 const isProduction = process.env.ELEVENTY_RUN_MODE === "build";
 
 export async function transformParser(content) {

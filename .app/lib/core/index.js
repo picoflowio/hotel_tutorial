@@ -26,6 +26,6 @@ export const core = {
     config.setIncludesDirectory(".app/lib");
 
     config.addWatchTarget("./../app.mjs");
-    config.addPassthroughCopy({ "./../images/favicon.png": "/images/favicon.png" });
+    config.addPassthroughCopy({ "./../images": "/images" });
   },
 };
