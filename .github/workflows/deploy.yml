@@ -35,8 +35,6 @@ jobs:
       - name: Build site
         run: npm run build
         working-directory: .app
-        env:
-          ELEVENTY_NOTES_PATH_PREFIX: /hotel_tutorial
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
